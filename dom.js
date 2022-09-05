@@ -26,3 +26,10 @@ for(var i=0;i<items.length;i++)
 {
     items[i].style.fontWeight='bold';
 }
+
+var itm=document.getElementsByTagName('li');
+
+console.log(itm[1]);
+itm[4].textContent='hello bro';
+itm[4].style.fontWeight='bold';
+
