@@ -10,8 +10,6 @@ document.all[10].textContent='hello';
 var headerT=document.getElementById("header-title");
 var header=document.getElementById("main-header");
 
-console.log(headerT);
-console.log(header);
 
 headerT.textContent='Heyaa';
 headerT.innerHTML='<h2> HEYAA</h2>';
@@ -35,12 +33,40 @@ itm[4].style.fontWeight='bold';
 items[1].style.backgroundColor='green';
 
 var second=document.querySelectorAll('.list-group-item');
-second[2].style.color='green';
+second[1].style.color='green';
 
 var odd=document.querySelectorAll('li:nth-child(odd)');
 
 for(var i=0;i<odd.length;i++)
 {
-   odd[i].style.backgroundColor='green';
+   odd[i].style.backgroundColor='';
 }
+
+var node=document.querySelector("#items");
+
+console.log(node.parentNode);
+node.parentNode.style.backgroundColor='#f4f4f4';
+
+
+console.log(node.lastChild);
+
+node.lastElementChild.style.color='blue';
+node.lastElementChild.textContent='beach'
+node.firstElementChild.style.color='orange';
+node.firstElementChild.textContent='Storm'
+console.log(node.nextElementSibling);
+node.previousSibling.textContent='HEllo'
+
+
+var newdiv=document.createElement('div');
+newdiv.className='hello';
+newdiv.id='hello1';
+
+console.log(newdiv);
+
+var nwdivtxt=document.createTextNode('Once upon a time');
+newdiv.appendChild(nwdivtxt);
+node.parentNode.previousSibling.textContent='HEllo';
+
+var  jhg=document.getElementById("main");
 
