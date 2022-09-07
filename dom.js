@@ -9,14 +9,15 @@ myForm.addEventListener('submit', onSubmit);
 
 function onSubmit(e) {
  e.preventDefault();
-localStorage.setItem(nameInput.value,emailInput.value);
- if(nameInput.value === '' || emailInput.value === '') {
-  msg.classList.add('error');
-  msg.innerHTML = 'Please enter all fields';
-  setTimeout(() => msg.remove(), 3000);
- } else {
-  console.log((`${nameInput.value}: ${emailInput.value}`));
-  nameInput.value = '';
-  emailInput.value = '';
- }
+
+
+let myObj = {
+
+    name : nameInput.value,
+    email : emailInput.value
+};
+
+let myob_ser=JSON.stringify(myObj);
+localStorage.setItem("myobj",myob_ser);
+ console.log(myob_ser);
 }
