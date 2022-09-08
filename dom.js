@@ -4,87 +4,78 @@ const nameInput = document.querySelector('#name');
 const emailInput = document.querySelector('#email');
 const msg = document.querySelector('.msg');
 const userList = document.querySelector('#users');
-
 myForm.addEventListener('submit', onSubmit);
-
-var bg=document.querySelector('.container');
-bg.style.background="#ccc";
 
 
 function onSubmit(e) {
 
- e.preventDefault();
-// local storage 
- let myObj = {
+    e.preventDefault();
+    const obj={
+        name: nameInput.value,
+        email:emailInput.value
+    }
 
-    name : nameInput.value,
-    email : emailInput.value
-};
+    localStorage.setItem(email.value, JSON.stringify(obj))
+    const localStorageObj = localStorage;
+
+    const localstoragekeys  = Object.keys(localStorageObj)
+
+    for(var i =0; i< 1; i++){
+
+        const key = localstoragekeys[i];
+        const userDetailsString = localStorageObj[key];
+        const userDetailsObj = JSON.parse(userDetailsString);
+        showNewUserOnScreen(userDetailsObj);
+    }
+}
 
 
-let myob_ser=JSON.stringify(myObj);
-localStorage.setItem(email.value,myob_ser);
 
 
-
-
-Object.keys(localStorage).forEach((key) => {
-
-    stringifiedDetailsOfPeople = localStorage.getItem(key);
-       detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
-       
-       const li = document.createElement('li');
-       console.log(detailsOfPeople);
-       li.append(detailsOfPeople.name +detailsOfPeople.email);
-       userList.append(li);
-   
+function showNewUserOnScreen(user){
+ 
+   document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
     
-   
-       const Editbtn=document.createElement('button');
-       Editbtn.appendChild(document.createTextNode("Edit"));
-        li.appendChild(Editbtn);
-   
-      const deletebtn=document.createElement('button');
-      deletebtn.appendChild(document.createTextNode("Delete"));
-      deletebtn.className='delete';
-       li.appendChild(deletebtn);
-   
-   
-       userList.addEventListener('click',removeitem);
-   
-       nameInput.value = '';
-       emailInput.value = '';
-       });
+    if(localStorage.getItem(user.email) !== null){
+        removeUserFromScreen(user.email)
+    }
 
-       
-  function removeitem(e){
+    console.log(localStorage.getItem(user.emailId))
+    const parentNode = document.getElementById('users');
+    const childHTML = `<li id=${user.email}> ${user.name} - ${user.email}
+                            <button onclick=deleteUser('${user.email}')> Delete User </button>
+                            <button onclick=editUserDetails('${user.email}','${user.name}','${user.phonenumber}')>Edit User 
+                            </button> </li>`
 
-    if(e.target.classList.contains('delete'))
-    {
-        if(confirm('are u sure'))
-        {
-            var d=e.target.parentElement;
-            userList.removeChild(d);
-            
-            localStorage.removeItem(email.value);
+    parentNode.innerHTML = parentNode.innerHTML + childHTML;
+}
 
 
-        }
+function editUserDetails(emailId, name ){
+
+    document.getElementById('email').value = emailId;
+    document.getElementById('name').value = name;
+
+    deleteUser(emailId);
+ }
+
+function deleteUser(emailId){
+    console.log(emailId);
+    localStorage.removeItem(emailId);
+    removeUserFromScreen(emailId);
+
+}
+
+
+
+function removeUserFromScreen(emailId){
+    const parentNode = document.getElementById('users');
+    const childNodeToBeDeleted = document.getElementById(emailId);
+
+    if(childNodeToBeDeleted) {
+        parentNode.removeChild(childNodeToBeDeleted);
     }
 
 }
-
-
-
-}
-
-
-
-
-
-    
-
-
-
-
 
