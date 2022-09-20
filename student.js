@@ -2,7 +2,7 @@ class student{
     static count=0;  //static variable to call
 
 
-    constructor(name,age,phoneNo,boardMarks)
+    constructor(name,age,phoneNo,boardMarks,)
     {
        // student.count()
         this.name=name;
@@ -22,9 +22,6 @@ class student{
                     console.log("Not eligible");
                 }
     }
-    // another way to track students
-
-
     //static count(){
     //    student.counter = (student.counter || 0) + 1;
      //   return;
@@ -34,6 +31,20 @@ class student{
     static countStudent(){
         return(student.count++);     //this is how u access static variable
 
+    }
+
+
+    elibileForPlace(MinplacementAge){
+
+            return (MinMarks)=>{
+                if(this.boardMarks>MinMarks && this.age>MinplacementAge)
+                {
+                    console.log(this.name +" is eligible for placements")
+                }else{
+                    console.log(this.name +" is not eligible for placements")
+
+                }
+            }
     }
     
 
@@ -52,4 +63,10 @@ let Student5= new student("DANY",30,26456936,95);
 
 Student1.eligiblity();
 console.log(student.countStudent());
+
+Student1.elibileForPlace(18)(40);
+Student2.elibileForPlace(18)(40);
+Student3.elibileForPlace(18)(40);
+Student4.elibileForPlace(18)(40);
+Student5.elibileForPlace(18)(40);
 
