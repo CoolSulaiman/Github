@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+* {
+    margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+ul {
+  list-style: none;
+}
+
+ul li {
+  padding: 5px;
+  margin: 5px 0;
+}
+
+header {
+  background: #f4f4f4;
+  padding: 1rem;
+  text-align: center;
+}
+
+
+.container {
+  margin: auto;
+  width: 500px;
+  overflow: auto;
+  padding: 3rem 2rem;
+}
+
+#my-form {
+  padding: 3rem;
+  background: #e4dcdc;
+}
+
+#my-form label {
+  display: block;
+}
+
+#my-form input[type='text'] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  border: 0;
+
+  background: rgb(102, 46, 46);
+  color: #fff;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+    </style>
+
+
+</head>
+<body>
+    <header>
+    <h1>JS for beginners</h1>
+</header>
+    <section class="container">
+        <form id="my-form">
+            <h1>Add user</h1>
+         <div class="msg"></div>
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name">
+            </div>
+             <br>
+
+            <div>
+                <label for="email">Email</label>
+                <input type="text" id="email">
+            </div>
+            <br>
+            <input class="btn" type="submit" vale="submit">
+        </form>
+<ul id="users"></ul>        
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" > </script>
+<ul class="items">
+    <li style="background-color:green;"class="item">Item 1</li>
+    <li style="background-color:yellow;" class="item">Item 2</li>
+    <li class="item">Item 3</li>
+  </ul> 
+    </section>
+    <script src="dom.js"></script>
