@@ -6,7 +6,10 @@ const userList = document.querySelector('#users');
 myForm.addEventListener('submit', onSubmit);
 
 
-axios.get("https://crudcrud.com/api/3461f1424094498c9447862a3f01f770/appointmentData")
+
+
+window.addEventListener("DOMContentLoaded",()=>{
+    axios.get("https://crudcrud.com/api/3461f1424094498c9447862a3f01f770/appointmentData")
 .then((res)=>{
 
     const rest=res;
@@ -17,6 +20,11 @@ axios.get("https://crudcrud.com/api/3461f1424094498c9447862a3f01f770/appointment
 .catch((err)=>{
     console.log(err);
 })
+
+})
+
+
+
 
 function showNewUserOnScreen111(user){
     var parentNode=document.getElementById('users');
