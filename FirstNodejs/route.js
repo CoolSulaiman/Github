@@ -8,8 +8,9 @@ const requestHandler = (req,res)=>{
 
     fs.readFile("message.text",{encoding:"utf-8"}, (err,data)=>{
         if(err){
-        console.log(err)
+        console.log(err);
         }
+
     if(url==='/')
     {
     res.setHeader('Content-Type','text/html')
@@ -24,7 +25,7 @@ const requestHandler = (req,res)=>{
     }
     })
     
-    
+     
     if(url==="/messaage" && method==='POST'){
         
         const body=[];
@@ -32,14 +33,14 @@ const requestHandler = (req,res)=>{
                 console.log(chunk)
                 body.push(chunk);
         }));
-    
+         
         req.on('end',(()=>{
             const parsedBody=Buffer.concat(body).toString();
             console.log(parsedBody)
-            const mes=parsedBody.split('=')[1]
+            const mes=parsedBody.split('=')[1];
             fs.writeFileSync("message.text",mes);
-            res.write('')
-    
+            // res.write('')
+            
             
     
         }));
