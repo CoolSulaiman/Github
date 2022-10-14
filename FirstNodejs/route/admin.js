@@ -1,20 +1,13 @@
 const express = require('express');
 const bodyParser=require('body-parser')
-const path=require('path');
 const router=express.Router()
-const rootdir= require('../../util/path')
 
-router.get('/addproduct',(req,res,next)=>{
-    console.log("Get request --Adding product");
-    res.sendFile(path.join(rootdir,'../','views','addproduct.html'))
-    
-})
+const productController=require('../../Controller/product')
+router.get('/addproduct',productController.getAddproduct)
+
+
 router.use(bodyParser.urlencoded({extended:false}))
-
-router.post('/addproduct',(req,res,next)=>{
-    console.log(req.body);
-    console.log("Post req. from admin")
-   res.redirect('/shop');
-})
+  
+router.post('/addproduct',productController.postController)
 
 module.exports=router

@@ -1,17 +1,10 @@
 const express=require('express');
-const path=require('path')
 console.log("lover")
 const router=express.Router();
+const controllercontact=require('../../Controller/contactUs')
 
-router.get('/contactUs',(req,res,next)=>{
-    
-res.sendFile(path.join(__dirname,'..','..','views','contactus.html'))
-
-})
+router.get('/contactUs',controllercontact.contactUscontroller)
 
 
-router.post('/sucess',(req,res,next)=>{
-
-    res.send('<h1> Form successfuly filled </h1>')
-})
+router.post('/sucess',controllercontact.contactPostsuccess)
 module.exports=router;
