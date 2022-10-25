@@ -1,13 +1,11 @@
-const path=require('path')
+const path = require('path');
 
-exports.contactUscontroller=(req,res,next)=>{
-    
-    res.sendFile(path.join(__dirname,'..','views','contactus.html'))
-    
-    }
+exports.contact=(req,res,next)=>{
 
-    exports.contactPostsuccess=(req,res,next)=>{
+    res.sendFile(path.join(__dirname,'..','views','contactUs.html'))
+}
 
-        res.send('<h1> Form successfuly filled </h1>')
-    }
+exports.sucess= (req,res,next)=>{
 
+    res.send('<h1> Form successfuly filled </h1>')
+}

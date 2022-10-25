@@ -1,10 +1,11 @@
-const express=require('express');
-console.log("lover")
-const router=express.Router();
-const controllercontact=require('../controllers/contactUs')
+const path = require('path');
+const express = require('express');
 
-router.get('/contactUs',controllercontact.contactUscontroller)
+const contactController=require('../Controllers/contactUs')
 
+const router =express.Router();
 
-router.post('/sucess',controllercontact.contactPostsuccess)
+router.get('/contactUs',contactController.contact)
+
+router.post('/sucess',contactController.sucess)
 module.exports=router;
