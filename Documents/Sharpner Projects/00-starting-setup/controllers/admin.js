@@ -1,3 +1,4 @@
+const { reset } = require('nodemon');
 const { deleteproductbyID } = require('../models/product');
 const Product = require('../models/product');
 
@@ -14,12 +15,19 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl;
   const price = req.body.price;
   const description = req.body.description;
-  const product = new Product(null,title, imageUrl, description, price);
-  product.save()
-  .then(()=>{
-    res.redirect('/')
+  Product.create({
+    title:title,
+    price:price,
+    imageUrl:imageUrl,
+    description:description
   })
-  .catch()
+  .then(result=>{
+    console.log(result)
+    res.redirect('/admin/products')
+  })
+  .catch(err=>{
+    console.log(err)
+  })
 };
 
 exports.getEditProduct = (req, res, next) => {
@@ -28,7 +36,7 @@ exports.getEditProduct = (req, res, next) => {
     return res.redirect('/');
   }
   const prodId = req.params.productId;
-  Product.findById(prodId)
+  Product.findByPk(prodId)
   .then((product)=>{
     res.render('admin/edit-product', {
       pageTitle: 'Edit Product',
@@ -50,12 +58,18 @@ exports.getEditProduct = (req, res, next) => {
 
 exports.postDeleteProduct =(req,res,next)=>{
   const prodId=req.body.productId;
-  deleteproductbyID(prodId)
-  .then(()=>{
-    res.redirect('/');
-
+  
+  Product.findByPk(prodId)
+  .then(product=>{
+    return product.destroy();
   })
-  .catch()
+  .then(result=>{
+    console.log("DELETED")
+    res.redirect('/admin/products')
+  })
+  .catch(err=>{
+    console.log(err)
+  })
 
 }
 
@@ -66,19 +80,36 @@ const updatedimageUrl = req.body.imageUrl;
 const updatedprice = req.body.price;
 const updatedDescription = req.body.description;
 const updatedProduct=new Product(prodId,updatedtitle,updatedimageUrl,updatedDescription,updatedprice)
-updatedProduct.save()
-res.redirect('/admin/products')
+Product.findByPk(prodId)
+.then(product=>{
+  product.title=updatedtitle;
+  product.price=updatedprice;
+  product.imageUrl=updatedimageUrl
+  product.description=updatedDescription;
+  return product.save();
+})
+.then(result=>{
+  console.log("UPDATED PRODUCT")
+  res.redirect('/admin/products')
+
+})
+.catch(err=>{
+  console.log(err)
+})
 
 }
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll()
-  .then(([row,field])=>{
+  Product.findAll()
+  .then(product=>{
     res.render('admin/products', {
-      prods: row,
+      prods: product,
       pageTitle: 'Admin Products',
       path: '/admin/products'
     });
   })
-  .catch()
+  .catch(err=>{
+    console.log(err)
+  })
+
 };
