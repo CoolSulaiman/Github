@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body{
+            color:aliceblue;
+            display:block;
+            height: 100vh;
+            background: linear-gradient(135deg,#0507,#d60606);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        form .btn input{
+            padding: 10px 0;
+            margin-top: 10px;
+            height: 100%;
+            width: 50%;
+            outline: none;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius:5px;
+            letter-spacing: 1px;
+            background: #0507
+
+        }
+
+        .container{
+            max-width:700px;
+            width:100%;
+            padding: 25px 30px;
+            border-radius:25px;
+            background:linear-gradient(140deg, #d60606,#05073a)
+        }
+
+        .details .card input{
+            height:45px;
+            width:100% ;
+            border-radius:5px ;
+            outline:none ;
+            padding-left:15px;
+            border:1px solid #ccc;
+            font-size: 16px;
+            border-bottom-width: 2px;
+            transition:all 0.3s ease ;
+
+        }
+
+        form .btn{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            padding: 10px;
+            border: 0ex;
+            height: 45px;
+            width: 45px 0;
+    }
+
+    form .btn input{
+            height: 100px;
+            width: 100px;
+    }
+
+
+    </style>
+
+</head>
+<body>
+
+ <h1 style="text-align: center"> Expense Tracker</h1> 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" > </script>
+
+ <section  id ='area' class="container">
+    <form id="my-form">
+        <div class="details">
+     <div class="msg"></div>
+     
+        <div class="card">
+            <label for="amount">Choose Expense Amount</label>
+            <input type="number" id="amount" >
+        </div>
+         <br>
+
+        <div class="card">
+            <label for="des">Choose Desciption</label>
+            <input type="text" id="des" >
+        </div>
+        <br>
+        <div class="card">
+            <!-- <label for="cat5">Choose Category</label>
+            <input type="text" id="cat5" > -->
+            <label>Choose Category: </label>
+            <input list="category" id =Category>
+            <datalist id="category">
+                <option value="Fuel" />
+                <option value="Food" />
+                <option value="Electricity" />
+                <option value="Fees" />
+                <option value="Luxuries" />
+            </datalist>
+        </div>
+        <br>
+    </div>
+    <div class="btn">
+        <button id="clickme">Add Expense</button>
+    </div>
+        <br>
+        <br>
+    </form>
+
+    <ul id="users"></ul>        
+
+  </ul> 
+</section>
+
+    <script src="expense.js"></script>
+</body>
+</html>
