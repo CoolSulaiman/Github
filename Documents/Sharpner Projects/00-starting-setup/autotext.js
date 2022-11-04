@@ -1,4 +1,5 @@
-const container = document.getElementById("container");
+window.onload=function(){
+  const container = document.getElementById("container");
 const img = document.querySelector("img");
 
 container.addEventListener("mousemove", (e) => {
@@ -15,3 +16,4 @@ container.addEventListener("mouseleave", () => {
     img.style.transformOrigin = "center center";
     img.style.transform = "scale(1)";
 });
+}
