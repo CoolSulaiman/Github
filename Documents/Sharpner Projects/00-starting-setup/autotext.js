@@ -1,13 +1,9 @@
 window.onload=function(){
-const open = document.getElementById("open");
-const close = document.getElementById("close");
-const container = document.getElementById("container");
 
-open.addEventListener("click", () => {
-    container.classList.add("active");
-});
+    const toogle=document.getElementById('toogle')
 
-close.addEventListener("click", () => {
-    container.classList.remove("active");
-});
+    toogle.addEventListener('change',(e)=>{
+        document.body.classList.toggle("dark",e.target.checked)
+    })
+
 }
