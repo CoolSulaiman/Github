@@ -1,12 +1,13 @@
-    const text="How is it going biroo!!!"
-let index=0;
+window.onload=function(){
+const open = document.getElementById("open");
+const close = document.getElementById("close");
+const container = document.getElementById("container");
 
-function writeText(){
-	document.body.innerText=text.slice(0,index)
-	index++;
+open.addEventListener("click", () => {
+    container.classList.add("active");
+});
 
-	if(index>text.length-1){
-			index=0;
-	}
+close.addEventListener("click", () => {
+    container.classList.remove("active");
+});
 }
-setInterval(writeText,100);

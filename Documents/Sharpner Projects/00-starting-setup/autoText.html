@@ -1,32 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        
-
-*{
-    box-sizing: border-box;
-}
-
-body{
-background-color: bisque;
-    display: flex;
-    align-items: center; 
-    align-content: center;
-    justify-content: center;
-    color:black;
-    font-size: 1rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    min-height: 100vh;
-
-}
-    </style>
     <meta charset='utf-8'>
     <title>Page Title</title>
+    <link rel="stylesheet" href="style.css" />
+
     <script src='autotext.js'></script>
 </head>
 <body>
-    
+    <button id="open">Open</button>
+
+        <div class="popup-container" id="container">
+            <div class="popup">
+                <button id="close">&times;</button>
+                <h1>YouTube</h1>
+                <p>Also, my YouTube viewers are the best too. Right?</p>
+            </div>
+        </div>
 </body>
 </html>
