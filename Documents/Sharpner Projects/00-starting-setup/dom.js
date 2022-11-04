@@ -1,4 +1,12 @@
-console.log("hello world")
+window.onload=function(){  
 
-console.log(b)
-	var b =100;
+const btn=document.getElementById('btn')
+const nav=document.getElementById('nav')
+
+btn.addEventListener("click",()=>{
+	nav.classList.toggle("active")
+	btn.classList.toggle("active")
+
+})
+}
+
