@@ -48,26 +48,24 @@ for(let i=0;i<addToCart.length;i++){
     button.addEventListener("click", addCartClicked)
 }
 
-function addCartClicked(event){
-
+function addCartClicked(event,id){
     var button=event.target;
     var shopProduct=button.parentElement;
 
     var title=shopProduct.getElementsByClassName("product-title")[0].innerText;
     var price=shopProduct.getElementsByClassName("price")[0].innerText;
     var productImg=shopProduct.getElementsByClassName("img")[0].src;
-    addProductToCart(title,price,productImg)
+    addProductToCart(title,price,productImg,id)
     updatetotal()
 }
 
-function addProductToCart(title,price,productImg){
+function addProductToCart(title,price,productImg,id){
     var cartShopBox=document.createElement("div")
     cartShopBox.classList.add("cart-box")
 
     var cartItems=document.getElementsByClassName("cart-content")[0];
     // let cartItemsBox=document.getElementsByClassName("detail-box")[0]
     var cartItemsNames=document.getElementsByClassName("cart-product-title");
-    console.log(cartItemsNames)
 
     for(var i=0;i<cartItemsNames.length;i++){
         if(cartItemsNames[i].innerText == title)
@@ -86,9 +84,8 @@ function addProductToCart(title,price,productImg){
         <i class='bx bxs-trash-alt cart-remove'></i>
     </div>
             `
-    
+            postProductToCart(id);
         cartShopBox.innerHTML = cartBoxContent;
-        console.log(cartShopBox);
         // cartItems.innerHTML = cartItems.innerHTML+cartShopBox Set-Location -Path C:\
 
         cartItems.append(cartShopBox)
@@ -179,14 +176,14 @@ window.addEventListener('DOMContentLoaded',(()=>{
     .then((res)=>{
             console.log("GOT  FROM  DATABASE");
 
-            res.forEach(element => {
+            res.forEach(data => {
                 const parent= document.getElementById('shop-content')
                 
-                const child=`<div id=${element.id} class="product-box">
-                <img src=${element.imgSrc} alt="" class="product img">
-                <div class="product-title">${element.title}</div>
-                <span class="price">${element.price}</span>
-                <i id="btn" class='bx bx-shopping-bag add-cart'></i>
+                const child=`<div id=${data.id} class="product-box">
+                <img src=${data.imgSrc} alt="" class="product img">
+                <div class="product-title">${data.title}</div>
+                <span class="price">${data.price}</span>
+                <i id="btn" class='bx bx-shopping-bag add-cart' onclick= addCartClicked(event, ${data.id})> </i>
                 
             </div>`
             
@@ -195,3 +192,17 @@ window.addEventListener('DOMContentLoaded',(()=>{
             
     })
     }))
+
+    function postProductToCart(prodId){
+
+        axios.post("http://localhost:3000/cart",{prodId:prodId})
+        .then((data)=>{
+                console.log(data)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
+
+    
