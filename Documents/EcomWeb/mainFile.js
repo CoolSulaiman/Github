@@ -168,3 +168,30 @@ function addItemToCart(title, price, imageSrc) {
     cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click', removeCartItem)
     cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', quantityChanged)
 }
+
+
+// -----------axios------------
+
+window.addEventListener('DOMContentLoaded',(()=>{
+
+    axios.get('http://localhost:3000/products')
+    
+    .then((res)=>{
+            console.log("GOT  FROM  DATABASE");
+
+            res.forEach(element => {
+                const parent= document.getElementById('shop-content')
+                
+                const child=`<div id=${element.id} class="product-box">
+                <img src=${element.imgSrc} alt="" class="product img">
+                <div class="product-title">${element.title}</div>
+                <span class="price">${element.price}</span>
+                <i id="btn" class='bx bx-shopping-bag add-cart'></i>
+                
+            </div>`
+            
+            parent.innerHTML+=child;
+            });
+            
+    })
+    }))
