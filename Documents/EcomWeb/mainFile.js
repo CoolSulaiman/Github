@@ -175,15 +175,15 @@ window.addEventListener('DOMContentLoaded',(()=>{
     
     .then((res)=>{
             console.log("GOT  FROM  DATABASE");
-
-            res.forEach(data => {
+            console.log(  res.data.response)
+            res.data.response.forEach(data => {
                 const parent= document.getElementById('shop-content')
                 
                 const child=`<div id=${data.id} class="product-box">
                 <img src=${data.imgSrc} alt="" class="product img">
                 <div class="product-title">${data.title}</div>
                 <span class="price">${data.price}</span>
-                <i id="btn" class='bx bx-shopping-bag add-cart' onclick= addCartClicked(event, ${data.id})> </i>
+                <i id="btn" class='bx bx-shopping-bag add-cart' onclick= addCartClicked(event,"${data.id}")> </i>
                 
             </div>`
             
@@ -191,6 +191,8 @@ window.addEventListener('DOMContentLoaded',(()=>{
             });
             
     })
+
+    fetchCartProducts();
     }))
 
     function postProductToCart(prodId){
@@ -205,4 +207,25 @@ window.addEventListener('DOMContentLoaded',(()=>{
     }
 
 
-    
+    function fetchCartProducts(){
+
+        axios.get('http://localhost:3000/cart')
+        
+        .then((res)=>{
+
+            forEach(data => {
+                const parent=document.getElementsByClassName('cart-content')
+                
+                const child=`<img src="${data.productImg}" alt="" class="cart-img">
+                <div class="detail-box">
+                    <div class="cart-product-title">${data.title}</div>
+                    <div class="cart-price">${data.price}</div>
+                    <input type="number" value="1" class="cart-quantity">
+                    <i class='bx bxs-trash-alt cart-remove'></i>
+                </div>`
+            
+            parent.innerHTML+=child;
+            });
+
+        })
+    }
