@@ -177,3 +177,33 @@ exports.getCheckout = (req, res, next) => {
     pageTitle: 'Checkout'
   });
 };
+
+
+
+exports.postOrder = (req, res, next) => {
+  let fetchedCart ;
+  req.user
+    .getCart()
+    .then((cart) => {
+      fetchedCart = cart ;
+      return cart.getProducts();
+    })
+    .then((products) => {
+      return req.user.createOrder().
+      then(order=>{
+        console.log(order)
+        order.addProducts(products.map(product => {
+          product.orderItem = {quantity : product.cartitems.quantity}
+          return product
+        }))
+      })
+      .catch(err=>console.log(err))
+    })
+    .then(result=>{
+      fetchedCart.setProducts(null);
+      res.status(200).json({message:'successfully posted orders'})
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
