@@ -25,7 +25,6 @@ if(document.readyState == 'loading'){
 
 function ready(){
     const removeCartButtons=document.getElementsByClassName('cart-remove')
-    console.log(removeCartButtons);
     
     for(var i=0;i<removeCartButtons.length;i++){
         button=removeCartButtons[i];
@@ -179,12 +178,14 @@ window.addEventListener('DOMContentLoaded',(()=>{
     getProducts(page)
 
     }))
+
     fetchCartProducts();
 
 
             function getProducts(page){
     
         axios.get(`http://localhost:3000/products/?page=${page}`).then((res) => {
+            console.log("lllll")
             console.log(res)
          parent.innerHTML=null;
             res.data.products.forEach(data=>{
@@ -245,8 +246,7 @@ window.addEventListener('DOMContentLoaded',(()=>{
 
         axios.post("http://localhost:3000/cart",{prodId:prodId})
         .then((data)=>{
-            console.log("damn lover")
-            console.log(data)
+    
             showNotification("Succsffully added to cart",)
         })
         .catch(err=>{
@@ -294,6 +294,8 @@ window.addEventListener('DOMContentLoaded',(()=>{
         e.preventDefault();
         axios.post('http://localhost:3000/cart-delete-item', {prodId: prodId})
             .then(() => {
+                updatetotal()
+
                  removeFromCar(prodId)
 
             })
@@ -322,9 +324,11 @@ window.addEventListener('DOMContentLoaded',(()=>{
     document.addEventListener('click',(e)=>{
     
         
-        if (e.target.className=='cart-btn-bottom' || e.target.className=='cart-bottom' || e.target.className=='cart-holder'){
-            getCartItems()
-        }
+        // if (e.target.className=='cart-btn-bottom' || e.target.className=='cart-bottom' || e.target.className=='cart-holder'){
+        //     getCartItems()
+
+        // }
+
         if (e.target.className=='cancel'){
             document.querySelector('#cart').style = "display:none;"
         }
@@ -333,10 +337,14 @@ window.addEventListener('DOMContentLoaded',(()=>{
             //     alert('You have Nothing in Cart , Add some products to purchase !');
             //     return;
             // }
-            axios.post('http://localhost:3000/create-order')
+            console.log("jjjjj")
+            fetchCartProducts()
+            axios.post('http://localhost:3000/orders')
             .then(response=>{
-                // getCartItems();
-                console.log(response);
+                
+                console.log("hellllllllo")
+                console.log(response)
+
             })
             .catch(err=>{
                 console.log(err);
@@ -344,3 +352,5 @@ window.addEventListener('DOMContentLoaded',(()=>{
             alert('Thank you! forshopping with us')
         }
     })
+
+

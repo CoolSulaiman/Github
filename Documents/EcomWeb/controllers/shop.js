@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
 const CartItem = require('../models/cart-item');
+const OrderItem = require('../models/OrderItems');
 
 
 
@@ -165,10 +166,13 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  res.render('shop/orders', {
-    path: '/orders',
-    pageTitle: 'Your Orders'
-  });
+  req.user.getOrders({include : ['products']})
+  .then(orders=>{
+    res.status(200).json(orders)
+  })
+  .catch(err=>{
+    res.status(400).json('unable to fetch orders')
+  })
 };
 
 exports.getCheckout = (req, res, next) => {
@@ -191,9 +195,12 @@ exports.postOrder = (req, res, next) => {
     .then((products) => {
       return req.user.createOrder().
       then(order=>{
-        console.log(order)
         order.addProducts(products.map(product => {
           product.orderItem = {quantity : product.cartitems.quantity}
+          console.log(order)
+          console.log(product)
+
+          console.log(product.cartitems.quantity)
           return product
         }))
       })
