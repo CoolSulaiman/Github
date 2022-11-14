@@ -1,6 +1,7 @@
 const express=require('express')
 
 const app=express()
+const bycrpt=require('bcrypt')
 const sequelize=require('./Util/database')
 const bodyParser = require('body-parser');
 const adminRoutes=require('./Routes/admin')
