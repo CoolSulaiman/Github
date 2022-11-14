@@ -51,9 +51,9 @@ exports.PostUsers=async(req,res,next)=>{
         }
         const foundUser = user[0];
         if(foundUser.Password !== password){
-            return res.status(404).json({message:'invalid password'})
+            return res.status(401).json({message:'invalid password'})
         }
-         res.status(201).json(user)
+         res.status(200).json(foundUser)
 
     
     }
