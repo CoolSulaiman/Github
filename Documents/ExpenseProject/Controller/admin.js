@@ -34,4 +34,33 @@ exports.PostUsers=async(req,res,next)=>{
     }
 
 
+    exports.postLogin=async  (req,res,next)=>{
+
+        try{
+        const email=req.body.email;
+        const password=req.body.password;
+
+        if( !email || !password){
+            return res.status(400).json({message:'add all fields'})
+        }
+
+        
+        const user = await User.findAll({where:{email}})
+        if(user.length === 0){
+            return res.status(404).json({message:'user not found'})
+        }
+        const foundUser = user[0];
+        if(foundUser.Password !== password){
+            return res.status(404).json({message:'invalid password'})
+        }
+         res.status(201).json(user)
+
+    
+    }
+    catch(err){
+        res.status(500).json({error:err})
+        }
+    
+}
+
 
