@@ -24,6 +24,7 @@ function login(e){
             console.log("login success")
             if(res.status === 200){
                 alert("User login sucessful")
+                window.location.href = 'file:///C:/Users/ADMIN/Documents/ExpenseProject/Views/expense.html'
             }else{
                 console.log('error')
             }
