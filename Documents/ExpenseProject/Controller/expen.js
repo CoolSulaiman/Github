@@ -3,10 +3,10 @@ const User = require('../Models/UserExpense')
 
 exports.getUser = (req,res,next)=>{
 
-
 User
-.findAll()
+.findAll({where :{userId : req.user.id}})
 .then((response)=>{
+
     res.status(200).json({response})
 })
 .catch((err)=>{
@@ -24,7 +24,9 @@ try{
 const data= await User.create({
     Amount:amt,
     Description:des,
-    Category:category
+    Category:category,
+    userId:req.user.id
+
 })
 
 res.status(201).json({NewUser:data})
@@ -40,7 +42,7 @@ exports.deleteUser=async(req,res,next)=>{
         const id=req.params.id;
 
         const data=await User
-        .destroy({where:{id:id}})
+        .destroy({where:{id:id , userId:req.user.id} })
 
         res.status(200).json({message:"Successful"})
     }

@@ -9,12 +9,17 @@ const expenRoutes=require('./Routes/expen')
 
 const userexp=require('./Models/UserExpense')
 
-var cors=require('cors')
+var cors=require('cors');
+const User = require('./Models/user');
+const UserExp = require('./Models/UserExpense');
+const Expense = require('./Models/UserExpense');
 app.use(cors());
 app.use(bodyParser.json())
 app.use(adminRoutes)
 app.use(expenRoutes)
 
+User.hasMany(Expense)
+Expense.belongsTo(User)
 
 
 sequelize

@@ -2,6 +2,8 @@ const express=require('express')
 const User = require('../Models/user')
 const bcrypt=require('bcrypt')
 
+const jwt = require('jsonwebtoken');
+
 exports.postSignup=async(req,res,next)=>{
         try{
                 const name=req.body.Name;
@@ -61,13 +63,18 @@ exports.postSignup=async(req,res,next)=>{
             if(!matchPassUser){
              return res.status(401).json({message:'User not authorized'})
             }
-            return res.status(200).json(foundUser)
+            
+            return res.status(200).json({message:'login sucess' , token:generateAccessToken(foundUser.id)})
          });
+
+        
         // if(foundUser.Password !== password){
         //     return res.status(401).json({message:'invalid password'})
         // }
         //  res.status(200).json(foundUser)
-
+        function generateAccessToken(id){
+            return jwt.sign({ userId:id  },'itstoken');
+        }
     
     }
     catch(err){

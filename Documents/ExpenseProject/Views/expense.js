@@ -11,8 +11,8 @@ clickme.addEventListener('click', addExpense);
 
 
 window.addEventListener('DOMContentLoaded',(()=>{
-
-axios.get("http://localhost:8000/getuser")
+    let token = localStorage.getItem('token');
+axios.get("http://localhost:8000/getuser" , {headers:{"Authorisation" : token}})
 
 .then((res)=>{
         console.log("GOT  FROM  DATABASE");
@@ -35,6 +35,7 @@ function showNewUserOnScreen111(user){
 
 function addExpense(e){
     e.preventDefault();
+    let token = localStorage.getItem('token')
     const obj={
         Amount: amountInput.value,
         Description: descriptionInput.value,
@@ -42,7 +43,7 @@ function addExpense(e){
 
     }
 
-    axios.post("http://localhost:8000/addUser",obj)
+    axios.post("http://localhost:8000/addUser",obj,{headers : {'Authorisation': token}})
 
     .then((res)=>{
         console.log('ADDED')
@@ -88,8 +89,9 @@ function addExpense(e){
     }
 
     function deletexpense(amount,dataID){
+        let token = localStorage.getItem('token')
 
-        axios.delete(`http://localhost:8000/deleteUser/${dataID}`)
+        axios.delete(`http://localhost:8000/deleteUser/${dataID}`,{headers : {'Authorisation': token}})
         .then((response)=>{
             console.log(response.data+"data deleted")
         })
