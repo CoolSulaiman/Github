@@ -24,7 +24,9 @@ exports.postSignup=async(req,res,next)=>{
                     const data= await User.create({
                         Name:name,
                         Email:email,
-                        Password:hash
+                        Password:hash,
+                        ispremiumuser:false,
+                        
                     })
                 })
   
@@ -64,7 +66,10 @@ exports.postSignup=async(req,res,next)=>{
              return res.status(401).json({message:'User not authorized'})
             }
             
-            return res.status(200).json({message:'login sucess' , token:generateAccessToken(foundUser.id)})
+            return res.status(200).json({message:'login sucess' , token:generateAccessToken(foundUser.id) ,
+            isPremium:foundUser.ispremiumuser
+        
+        })
          });
 
         

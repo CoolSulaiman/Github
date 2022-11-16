@@ -5,7 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"> </script>
 
 </head>
@@ -13,25 +13,26 @@
 
     <div class="center">
         <h1>Login</h1>
-        <form  id="login-form" >
-          <div class="txt_field">
+        <form  id="login-form"  class="login-form">
+
+          <div class="txt_field" class="form-group ">
             <label>Email add</label>
-            <input type="email" required name="email" id="email">
+            <input type="email" required name="email" id="email" class="form-control" placeholder="Email " id="UserName">
             <span></span>
             
           </div>
           <br>
-          <div class="txt_field">
+          <div class="txt_field"  class="form-group log-status">
             <label>Password</label>
 
-            <input type="password" required name="password" id="password">
+            <input type="password" required name="password" id="password"  class="form-control" placeholder="Password" id="Passwod">
             <span></span>
           </div>
           <!-- <div class="pass">Forgot Password?</div> -->
           <!-- <input type="submit" value="Login"  id="clickme" > -->
          
           <div class="btn">
-            <button id="clickme">Login</button>
+            <button id="clickme" class="log-btn">Login</button>
         </div>
       
           <div class="login_link">
@@ -47,3 +48,5 @@
 
 </body>
 </html>
+
+

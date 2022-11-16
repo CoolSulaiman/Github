@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"> </script>
 
 </head>
@@ -20,26 +20,27 @@
 <label for="User">Password :</label>
 <input type="password"> -->
 
-    <section id='area' class="container">
-        <form id="my-form">
+    <section id='area' class="container" class="wrapper fadeInDown">
+        <h1  class="vv" style="text-align: center"> SignUp</h1>
+        <form id="my-form" class="login-form">
             <div class="details">
                 <div class="msg"></div>
 
-                <div class="card">
+                <div class="card" class="form-group ">
                     <label for="name">Name : </label>
-                    <input type="text" id="name">
+                    <input type="text" id="name" class="form-control" placeholder="Username " id="UserName">
                 </div>
                 <br>
 
-                <div class="card">
+                <div class="card" class="form-group log-status">
                     <label for="email">Email : </label>
-                    <input type="text" id="email">
+                    <input type="text" id="email" class="form-control" placeholder="Email " id="UserName">
                 </div>
                 <br>
 
-                <div class="card">
+                <div class="card" class="form-group log-status">
                     <label for="password">Password : </label>
-                    <input type="password" id="pas">
+                    <input type="password" id="pas" class="form-control" placeholder="Password " id="UserName">
                 </div>
                 <br>
 
@@ -51,12 +52,16 @@
             <br>
 
             <div class="btn">
-                <button id="clickme">SignUp</button>
+                <button id="clickme" class="log-btn">SignUp</button>
             </div>
             <a href="C:\Users\ADMIN\Documents\ExpenseProject\Views\login.html"> LOGIN </a>
-        </div>
-
-            <script src='ex.js'></script>
+            </div>
+        </form>
+        <script src='ex.js'></script>
 </body>
 
 </html>
+
+
+
+

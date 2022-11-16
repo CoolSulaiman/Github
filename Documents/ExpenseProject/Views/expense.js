@@ -2,16 +2,25 @@ const myForm = document.querySelector('#my-form');
 const amountInput = document.querySelector('#amount');
 const descriptionInput = document.querySelector('#des');
 const categoryInput = document.querySelector('#Category');
-
-console.log(categoryInput);
-console.log(descriptionInput);
-
+let token = localStorage.getItem('token')
 
 clickme.addEventListener('click', addExpense);
 
 
 window.addEventListener('DOMContentLoaded',(()=>{
     let token = localStorage.getItem('token');
+
+
+    const usertype = localStorage.getItem('user');
+    if(usertype == "true"){
+       
+
+        document.getElementById('area').classList.add('lightt')
+        document.getElementById('my-form').classList.add('lightt')
+    }
+
+
+    
 axios.get("http://localhost:8000/getuser" , {headers:{"Authorisation" : token}})
 
 .then((res)=>{
@@ -110,8 +119,92 @@ function addExpense(e){
 
     }
 
-    document.addEventListener('DOMContentLoaded ',function xy(e){
-        e.preventDefault();
+    // document.addEventListener('DOMContentLoaded ',function xy(e){
+    //     e.preventDefault();
 
 
-    })
+    // })
+
+    
+
+    document.getElementById('premium').onclick = async function(e){
+        e.preventDefault()
+
+        console.log("oppppp")
+        // let token = localStorage.getItem('token');
+
+        var x =0;
+        try {
+            const response = await axios.post('http://localhost:8000/payment/premiummembership', x, {headers : {'Authorisation': token}})
+            console.log("lolololol" , response.data)
+            checkout(response.data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+    function checkout(order){
+    
+        console.log(order);
+        // console.log(order.order.id)
+    
+        var options = {
+            "key" : order.key_id,
+            "amount": order.order.amount,
+            "currency": "INR",
+            "order_id": order.order.id,
+            "handler": function (response) {
+    
+                alert(`Payment successfull . Payment Id:- ${response.razorpay_payment_id} ` );
+    
+                // console.log(response.razorpay_payment_id);
+                // console.log(response.razorpay_order_id);
+                // console.log(response.razorpay_signature);
+    
+                axios.post('http://localhost:8000/payment/updatestatus', response,
+                 {headers : {'Authorisation': token}})
+                .then(res => {
+                    console.log("done");
+                    console.log(res);
+                    alert("You are a premium user now");
+                    premiumUser();
+                })
+                .catch(err => console.log(err));
+            },
+            // "prefill": {
+            //     "name": "Test User",
+            //     "email": "test.user@example.com",
+            //     "contact": "7003442036"
+            //   },
+            // "theme": {
+            //     "color": "#3399cc",
+            // },
+    
+            // "callback_url": "expense.html"
+        }
+    
+        var razorpay_1 = new Razorpay(options);
+    
+        razorpay_1.on('payment.failed', function(res) {
+            alert(res.error.code);
+            alert(res.error.description);
+        });
+    
+        razorpay_1.open();
+    }
+    
+    function premiumUser(){
+        const usertype = localStorage.getItem('user');
+        if(usertype == "true"){
+           
+    
+            document.getElementById('area').classList.add('lightt')
+            document.getElementById('my-form').classList.add('lightt')
+        }
+    }
+    
+document.getElementById('logout').onclick = function(e){
+    e.preventDefault();
+    localStorage.removeItem('token');
+    window.location.href = 'file:///C:/Users/ADMIN/Documents/ExpenseProject/Views/login.html'
+}
