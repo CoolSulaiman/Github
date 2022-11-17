@@ -1,20 +1,21 @@
 const forgetPass = document.getElementById('forgetPassword-form');
 const emailInput = document.querySelector('#email');
-  
-clickme.addEventListener('submit' , sendEmail);
 
-async function sendEmail(e){
+  
+clickme.addEventListener('click' , sendEmail);
+
+ function sendEmail(e){
     e.preventDefault();
-    
+    console.log("hhaa ji")
     const UserObj = {
         email: emailInput.value
     }
-    console.log(userDetails);
+    console.log(UserObj);
 
 
     axios.post('http://localhost:8000/password/forgotpassword' , UserObj)
     .then(res=>{
-
+console.log(res)
     })
     .catch(err=>{
         console.log(err)

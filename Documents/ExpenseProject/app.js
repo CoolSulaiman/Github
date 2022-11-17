@@ -8,10 +8,13 @@ const bodyParser = require('body-parser');
 const adminRoutes=require('./Routes/admin')
 const expenRoutes=require('./Routes/expen')
 const purchaseRouter = require('./Routes/purchase')
+const resetPasswordRoutes=require('./Routes/forgetpass')
 
 const Order = require('./Models/order');
 const User = require('./Models/user');
 const Expense = require('./Models/UserExpense');
+const Forgotpassword = require('./Models/forgotpassword');
+
 
 
 
@@ -22,11 +25,18 @@ app.use(adminRoutes)
 app.use(expenRoutes)
 
 app.use('/payment' , purchaseRouter)
+
+app.use('/password', resetPasswordRoutes);
+
+
 User.hasMany(Expense)
 Expense.belongsTo(User)
 
 User.hasMany(Order);
 Order.belongsTo(User);
+
+User.hasMany(Forgotpassword);
+Forgotpassword.belongsTo(User);
 
 sequelize
 // .sync({force:true})
