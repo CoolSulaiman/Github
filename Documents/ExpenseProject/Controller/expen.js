@@ -1,5 +1,8 @@
 const express=require('express')
 const User = require('../Models/UserExpense')
+const sequelize=require('sequelize')
+
+const User1=require('../Models/User')
 
 exports.getUser = (req,res,next)=>{
 
@@ -13,6 +16,38 @@ User
     res.status(500).json({err})
 })
 };
+
+
+exports.getAllusersforPremimum= (req,res,next)=>{
+
+            let leaderboard = [];
+           User1.findAll({attributes: ['id', 'Name', 'Email']})
+           .then(users=>{
+            
+            res.status(200).json({users})
+           })
+
+           .catch((err)=>{
+            res.status(500).json({err})
+        })
+          
+}
+
+exports.postExpensespreminm=(req,res,next)=>{
+
+const vc=req.body.OBJ
+
+User.findAll({where:{userId:vc } })
+.then((response)=>{
+
+    res.status(200).json({response})
+})
+.catch((err)=>{
+    res.status(500).json({err})
+})
+};
+
+
 
 exports.postAdduser=async (req,res,next)=>{
 

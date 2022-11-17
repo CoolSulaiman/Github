@@ -17,8 +17,13 @@ window.addEventListener('DOMContentLoaded',(()=>{
 
         document.getElementById('area').classList.add('lightt')
         document.getElementById('my-form').classList.add('lightt')
-    }
 
+        document.getElementById('json').innerHTML=`<a  id="json1" href="file:///C:/Users/ADMIN/Documents/ExpenseProject/Views/leaderboad.html">
+        Leaderboard
+     </a>`
+
+
+    }
 
     
 axios.get("http://localhost:8000/getuser" , {headers:{"Authorisation" : token}})
@@ -208,3 +213,5 @@ document.getElementById('logout').onclick = function(e){
     localStorage.removeItem('token');
     window.location.href = 'file:///C:/Users/ADMIN/Documents/ExpenseProject/Views/login.html'
 }
+
+

@@ -11,6 +11,13 @@ router.post('/addUser', middleware.authentication, adminController.postAdduser)
 
 router.delete('/deleteUser/:id',  middleware.authentication, adminController.deleteUser)
 
+router.get('/premium' , adminController.getAllusersforPremimum)
+
+router.post('/postpremium',adminController.postExpensespreminm)
+
+
+
+
 // router.post('/editUser/:id',adminController.editUser)
 
 module.exports=router;
