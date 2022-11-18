@@ -62,6 +62,7 @@ exports.postSignup=async(req,res,next)=>{
 
         const foundUser = user[0];
         bcrypt.compare(password, foundUser.Password, (err, matchPassUser)=>{
+            console.log("typed--" ,password, "databse", foundUser.Password, "compaared---", matchPassUser)
             if(!matchPassUser){
              return res.status(401).json({message:'User not authorized'})
             }

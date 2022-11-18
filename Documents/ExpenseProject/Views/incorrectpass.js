@@ -6,7 +6,6 @@ clickme.addEventListener('click' , sendEmail);
 
  function sendEmail(e){
     e.preventDefault();
-    console.log("hhaa ji")
     const UserObj = {
         email: emailInput.value
     }

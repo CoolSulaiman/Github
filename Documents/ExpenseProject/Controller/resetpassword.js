@@ -31,9 +31,6 @@ const Forgotpassword = require('../Models/forgotpassword');
             sgMail
             .send(msg)
             .then((response) => {
-
-                // console.log(response[0].statusCode)
-                // console.log(response[0].headers)
                 return res.status(response[0].statusCode).json({message: 'Link to reset password sent to your mail ', sucess: true})
 
             })
@@ -52,9 +49,69 @@ const Forgotpassword = require('../Models/forgotpassword');
 
 }
 
+ exports.resetpassword = (req, res) => {
+    const id =  req.params.id;
+    Forgotpassword.findOne({ where : { id }}).then(forgotpasswordrequest => {
+        if(forgotpasswordrequest){
+            forgotpasswordrequest.update({ active: false});
+            res.status(200).send(`<html>
+                                    <script>
+                                        function formsubmitted(e){
+                                            e.preventDefault();
+                                            console.log('called')
+                                        }
+                                    </script>
+                                    <form action="/password/updatepassword/${id}" method="get">
+                                        <label for="newpassword">Enter New password</label>
+                                        <input name="newpassword" type="password" required></input>
+                                        <button>reset password</button>
+                                    </form>
+                                </html>`
+                                )
+            res.end()
+
+        }
+    })
+}
+
+exports.updatepassword=(req,res,next)=>{
+
+            const { newpassword } = req.query;
+            const { resetpasswordid } = req.params;
+            Forgotpassword.findOne({ where : { id: resetpasswordid }}).then(resetpasswordrequest=>{
+ 
+    User.findOne({where:{id:resetpasswordrequest.userId}})
+    .then(user=>{
+        if(user){
+            // Encryption of password
+            const saltRounds=10;
+
+            bcrypt.hash(newpassword , saltRounds , async(err,hash) =>{
+                if(err){
+                     console.log(err);
+                     throw new Error(err);
+                   }
+                 
+                console.log(user)
+                console.log(hash)
+             
+                user.update({ Password: hash }).then(() => {
+                      res.status(201).json({message: 'Successfuly update the new password'})
+                 })
+
+            })
+
+        }else{
+                    return res.status(404).json({errp:'No user Exists' , success: false})
+        }
+    })
+
+})
+.catch(err=>{
+    console.log(err)
+})
 
 
-
-
+}
 
 
