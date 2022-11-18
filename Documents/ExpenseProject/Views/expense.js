@@ -18,7 +18,9 @@ window.addEventListener('DOMContentLoaded',(()=>{
         document.getElementById('area').classList.add('lightt')
         document.getElementById('my-form').classList.add('lightt')
 
-        document.getElementById('json').innerHTML=`<a  id="json1" href="file:///C:/Users/ADMIN/Documents/ExpenseProject/Views/leaderboad.html">
+        document.getElementById('json').innerHTML=`<a  id="json1" href="file:///C:/Users/ADMIN/Documents/ExpenseProject/Views/DownloadReports/reports.html">
+        Reports
+     </a><br> <br><a  id="json1" href="file:///C:/Users/ADMIN/Documents/ExpenseProject/Views/leaderboad.html">
         Leaderboard
      </a>`
 
@@ -215,3 +217,10 @@ document.getElementById('logout').onclick = function(e){
 }
 
 
+// document.getElementById('report').onclick = function(e){
+
+//     let usertype = localStorage.getItem('user');
+//     if(usertype == "true"){
+//         window.location.href = 'file:///C:/Users/ADMIN/Documents/ExpenseProject/Views/DownloadReports/reports.html'
+//     }
+// }
