@@ -28,14 +28,31 @@ window.addEventListener('DOMContentLoaded',(()=>{
     }
 
     
-axios.get("http://localhost:8000/getuser" , {headers:{"Authorisation" : token}})
+// axios.get("http://localhost:8000/getuser" , {headers:{"Authorisation" : token}})
 
-.then((res)=>{
-        console.log("GOT  FROM  DATABASE");
-        console.log(res.data.response)
-        showNewUserOnScreen111(res.data.response);
-})
+// .then((res)=>{
+//         console.log("GOT  FROM  DATABASE");
+//         console.log(res.data.response)
+//         showNewUserOnScreen111(res.data.response);
+// })
+
+let page = 1  ;
+    getLoadExpenses(page) ;
+
+
 }))
+
+
+async function getLoadExpenses(page){
+    try {
+        let response = await axios.get(`http://localhost:8000/getuser/${page}` , {headers:{"Authorisation" : token}})
+        console.log(response)
+        showNewUserOnScreen111(response.data.products)
+        showPagination(response.data.data)
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 function showNewUserOnScreen111(user){
@@ -48,6 +65,38 @@ function showNewUserOnScreen111(user){
     parentNode.innerHTML= parentNode.innerHTML+childHTML;
 }
 }
+
+function showPagination({currentPage,hasNextPage,hasPreviousPage,nextPage,previousPage,lastPage}){
+    pagination.innerHTML ='';
+    
+    if(hasPreviousPage){
+        const button1 = document.createElement('button');
+
+        button1.innerHTML = previousPage ;
+        
+        button1.addEventListener('click' , ()=>getLoadExpenses(previousPage))
+        pagination.appendChild(button1)
+    }
+    
+    const button2 = document.createElement('button');
+    button2.classList.add('active')
+    button2.innerHTML = currentPage ;
+    button2.addEventListener('click' , ()=>getLoadExpenses(currentPage))
+    pagination.appendChild(button2)
+
+    if(hasNextPage){
+        const button3 = document.createElement('button');
+        button3.innerHTML = nextPage ;
+        console.log("pada")
+        button3.addEventListener('click' , ()=>getLoadExpenses(nextPage))
+        pagination.appendChild(button3)
+    }
+
+}
+
+
+
+
 
 function addExpense(e){
     e.preventDefault();
@@ -138,7 +187,6 @@ function addExpense(e){
         e.preventDefault()
 
         console.log("oppppp")
-        // let token = localStorage.getItem('token');
 
         var x =0;
         try {

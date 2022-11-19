@@ -5,7 +5,7 @@ const middleware=require('../middleware/auth')
 const router=express()
 const adminController=require('../Controller/expen')
 
-router.get('/getuser', middleware.authentication ,adminController.getUser)
+router.get('/getuser/:page', middleware.authentication ,adminController.getUser)
 
 router.post('/addUser', middleware.authentication, adminController.postAdduser)
 
@@ -14,6 +14,10 @@ router.delete('/deleteUser/:id',  middleware.authentication, adminController.del
 router.get('/premium' , adminController.getAllusersforPremimum)
 
 router.post('/postpremium',adminController.postExpensespreminm)
+
+router.get('/download' , middleware.authentication ,adminController.downloadExpense )
+
+router.get('/getAllDownloadUrl' , middleware.authentication ,adminController.downloadAllUrl )
 
 
 
