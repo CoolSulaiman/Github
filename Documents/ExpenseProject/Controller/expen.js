@@ -31,7 +31,6 @@ let page = req.params.page || 1;
   Expense.count({where:{userId:req.user.id}})
     .then((totalProducts) => {
       totalItems = totalProducts;
-      console.log(totalItems)
       return Expense.findAll({
         where:{userId:req.user.id},
         offset: (page - 1) * limit_items,
@@ -39,7 +38,6 @@ let page = req.params.page || 1;
       });
     })
     .then((products) => {
-        console.log("nnpppp",products)
       res.status(200).json({
         products,
         success: true,
@@ -165,7 +163,7 @@ function uploadtoS3(data , filename){
 
 exports.downloadExpense= async (req,res,next)=>{
 
- User.findOne({where:{userId:req.user.id}})
+ User.findAll({where:{userId:req.user.id}})
   .then(async response=>{
     const expenseStringify=JSON.stringify(response)
 
@@ -193,7 +191,7 @@ exports.downloadExpense= async (req,res,next)=>{
 
 exports.downloadAllUrl = async(req,res,next) => {
 
-    downloadurl.findOne({where:{userId:req.user.id}})
+    downloadurl.findAll({where:{userId:req.user.id}})
     .then(urls=>{
         if(!urls){
             res.status(404).json({ message:'no urls found with this user' , success: false});

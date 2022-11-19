@@ -58,12 +58,11 @@ function showUrlOnscreen(data){
 function showUrls(data,e){
     listurl.innerHTML = ''
 
-    console.log(data.urls)
+    console.log("Sulaiman",data.urls)
 
     data.urls.forEach(url => {
-        console.log("mmmm",url.fileName, url.fileUrl)
         let  child = `<li class="list" >
-        <a href="${url[0].fileUrl}" class="expense-info">${listno + 1}. ${url.fileName[0]}</a>
+        <a href="${url.fileUrl}" class="expense-info">${listno + 1}. ${url.fileName}</a>
     </li>`  
 
     listurl.innerHTML += child

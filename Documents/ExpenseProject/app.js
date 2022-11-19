@@ -5,6 +5,14 @@ const bycrpt=require('bcrypt')
 const sequelize=require('./Util/database')
 const bodyParser = require('body-parser');
 
+const helmet =require('helmet')
+const compression = require('compression')
+const morgan = require('morgan');
+const fs = require('fs');
+const path = require('path');
+
+
+const accessLogStream = fs.createWriteStream('access.log', {flag: 'a'})
 const adminRoutes=require('./Routes/admin')
 const expenRoutes=require('./Routes/expen')
 const purchaseRouter = require('./Routes/purchase')
@@ -25,6 +33,11 @@ app.use(bodyParser.json())
 app.use(adminRoutes)
 app.use(expenRoutes)
 
+
+
+app.use(helmet())
+app.use(compression());
+app.use(morgan('combined', {stream: accessLogStream}));
 app.use('/payment' , purchaseRouter)
 
 app.use('/password', resetPasswordRoutes);
