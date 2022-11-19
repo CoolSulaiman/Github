@@ -23,8 +23,7 @@ exports.getUser =  (req,res,next)=>{
 //     res.status(500).json({err})
 // })
 
-let limit_items = 2;
-
+let limit_items = +(req.body.itemsPerPage) || 2 ;
 
 let page = req.params.page || 1;
 

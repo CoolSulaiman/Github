@@ -4,6 +4,9 @@ const descriptionInput = document.querySelector('#des');
 const categoryInput = document.querySelector('#Category');
 let token = localStorage.getItem('token')
 
+const perpage = document.getElementById('perpage');
+
+let itemsPerPage = Number(localStorage.getItem('itemsperpage')) ;
 clickme.addEventListener('click', addExpense);
 
 
@@ -37,15 +40,15 @@ window.addEventListener('DOMContentLoaded',(()=>{
 // })
 
 let page = 1  ;
-    getLoadExpenses(page) ;
+    getLoadExpenses(page ,itemsPerPage) ;
 
 
 }))
 
 
-async function getLoadExpenses(page){
+async function getLoadExpenses(page ,itemsPerPage){
     try {
-        let response = await axios.get(`http://localhost:8000/getuser/${page}` , {headers:{"Authorisation" : token}})
+        let response = await axios.post(`http://localhost:8000/getuser/${page}` ,{itemsPerPage:itemsPerPage}, {headers:{"Authorisation" : token}})
         console.log(response)
         showNewUserOnScreen111(response.data.products)
         showPagination(response.data.data)
@@ -54,6 +57,12 @@ async function getLoadExpenses(page){
     }
 }
 
+perpage.addEventListener('submit' , (e)=>{
+    e.preventDefault();
+    localStorage.setItem('itemsperpage' , +e.target.itemsPerPage.value )
+    itemsPerPage = localStorage.getItem('itemsperpage')
+    getLoadExpenses(1 , +e.target.itemsPerPage.value);
+})
 
 function showNewUserOnScreen111(user){
     for(let i=0;i<user.length;i++)
@@ -74,21 +83,21 @@ function showPagination({currentPage,hasNextPage,hasPreviousPage,nextPage,previo
 
         button1.innerHTML = previousPage ;
         
-        button1.addEventListener('click' , ()=>getLoadExpenses(previousPage))
+        button1.addEventListener('click' , ()=>getLoadExpenses(previousPage ,itemsPerPage))
         pagination.appendChild(button1)
     }
     
     const button2 = document.createElement('button');
     button2.classList.add('active')
     button2.innerHTML = currentPage ;
-    button2.addEventListener('click' , ()=>getLoadExpenses(currentPage))
+    button2.addEventListener('click' , ()=>getLoadExpenses(currentPage ,itemsPerPage))
     pagination.appendChild(button2)
 
     if(hasNextPage){
         const button3 = document.createElement('button');
         button3.innerHTML = nextPage ;
         console.log("pada")
-        button3.addEventListener('click' , ()=>getLoadExpenses(nextPage))
+        button3.addEventListener('click' , ()=>getLoadExpenses(nextPage ,itemsPerPage))
         pagination.appendChild(button3)
     }
 

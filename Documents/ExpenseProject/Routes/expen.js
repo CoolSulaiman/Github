@@ -5,7 +5,7 @@ const middleware=require('../middleware/auth')
 const router=express()
 const adminController=require('../Controller/expen')
 
-router.get('/getuser/:page', middleware.authentication ,adminController.getUser)
+router.post('/getuser/:page', middleware.authentication ,adminController.getUser)
 
 router.post('/addUser', middleware.authentication, adminController.postAdduser)
 
