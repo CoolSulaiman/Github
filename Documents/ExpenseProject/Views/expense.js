@@ -45,12 +45,16 @@ let page = 1  ;
 
 }))
 
-
+const paged=document.getElementById('users')
 async function getLoadExpenses(page ,itemsPerPage){
+
     try {
         let response = await axios.post(`http://localhost:8000/getuser/${page}` ,{itemsPerPage:itemsPerPage}, {headers:{"Authorisation" : token}})
-        console.log(response)
+        console.log(response.data.products)
+        paged.innerHTML="";
+
         showNewUserOnScreen111(response.data.products)
+
         showPagination(response.data.data)
     } catch (error) {
         console.log(error);
@@ -76,7 +80,7 @@ function showNewUserOnScreen111(user){
 }
 
 function showPagination({currentPage,hasNextPage,hasPreviousPage,nextPage,previousPage,lastPage}){
-    pagination.innerHTML ='';
+    // pagination.innerHTML =null;
     
     if(hasPreviousPage){
         const button1 = document.createElement('button');
@@ -96,7 +100,6 @@ function showPagination({currentPage,hasNextPage,hasPreviousPage,nextPage,previo
     if(hasNextPage){
         const button3 = document.createElement('button');
         button3.innerHTML = nextPage ;
-        console.log("pada")
         button3.addEventListener('click' , ()=>getLoadExpenses(nextPage ,itemsPerPage))
         pagination.appendChild(button3)
     }

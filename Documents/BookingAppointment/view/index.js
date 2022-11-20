@@ -43,10 +43,8 @@ function onSubmit(e) {
         phone:phoneInput.value
 
     }
-    console.log(obj)
 axios.post("http://localhost:2000/addUsers", obj)
     .then((response) => { 
-        console.log(response.data.NewData)
       showNewUserOnScreen(response.data.NewData);
     })
     .catch((err) => {

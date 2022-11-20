@@ -59,10 +59,12 @@ sequelize
 // .sync({force:true})
 .sync()
 .then(result=>{
-    app.listen(8000)
+    app.listen( 8000)
 })
 .catch(err=>{
     console.log(err)
 })
+
+
 
 

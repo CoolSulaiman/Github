@@ -32,7 +32,8 @@ exports.getUsers = (req, res, next) => {
 //     })
 
     exports.postUser= async(req,res,next)=>{
-        // console.log(req.data)
+  
+
         try{
             if(!req.body.phone){
                 throw new Error('Phone Number is mandatory');

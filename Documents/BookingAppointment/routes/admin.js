@@ -1,4 +1,3 @@
-const path =require('path')
 const User=require('../models/user')
 const express = require('express');
 
